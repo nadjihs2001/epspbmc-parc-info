@@ -14,11 +14,13 @@ class EquipmentIndex extends Component
 
     public string $search = '';
     public string $status = '';
+    public string $category = '';
     public $perPage = 15;
 
     protected $queryString = [
         'search' => ['except' => ''],
         'status' => ['except' => ''],
+        'category' => ['except' => ''],
         'perPage' => ['except' => 15],
     ];
 
@@ -28,6 +30,11 @@ class EquipmentIndex extends Component
     }
 
     public function updatingStatus(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingCategory(): void
     {
         $this->resetPage();
     }
@@ -48,9 +55,10 @@ class EquipmentIndex extends Component
         $search = '%'.$this->search.'%';
 
         $equipments = Equipment::query()
-            ->with(['type', 'location.structure', 'location.department', 'location.parent'])
+            ->with(['type', 'location.structure', 'location.department', 'location.parent', 'structure'])
             ->when($structureId, fn ($q) => $q->where('structure_id', $structureId))
             ->when($this->status !== '', fn ($q) => $q->where('statut', $this->status))
+            ->when($this->category !== '', fn ($q) => $q->where('category_id', $this->category))
             ->when($this->search !== '', function ($q) use ($search) {
                 $q->where(function ($nested) use ($search) {
                     $nested->where('code_inventaire', 'like', $search)

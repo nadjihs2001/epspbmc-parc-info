@@ -39,7 +39,7 @@ class TicketForm extends Form
     public function rules()
     {
         return [
-            'code' => 'required|unique:tickets,code,' . ($this->ticket->id ?? 'NULL'),
+            'code' => 'required|unique:tickets,code,' . ($this->ticket?->id ?? 'NULL'),
             'equipment_id' => [
                 'nullable',
                 Rule::exists('equipments', 'id')->where(fn ($q) => $q->where('structure_id', $this->structure_id)),
@@ -60,7 +60,8 @@ class TicketForm extends Form
     {
         $this->validate();
 
-        $data = $this->except(['ticket']);
+        $data = $this->all();
+        unset($data['ticket']);
 
         if ($this->ticket) {
             $this->ticket->update($data);

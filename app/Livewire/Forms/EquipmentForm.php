@@ -76,7 +76,7 @@ class EquipmentForm extends Form
     public function rules()
     {
         return [
-            'code_inventaire' => 'required|unique:equipments,code_inventaire,' . ($this->equipment->id ?? 'NULL'),
+            'code_inventaire' => 'required|unique:equipments,code_inventaire,' . ($this->equipment?->id ?? 'NULL'),
             'type_id' => 'required|exists:equipment_types,id',
             'category_id' => 'nullable|exists:equipment_categories,id',
             'structure_id' => 'required|exists:structures,id',
@@ -112,7 +112,8 @@ class EquipmentForm extends Form
 
         $this->current_location = $newLocation;
 
-        $data = $this->except(['equipment', 'translations', 'locationChangeNote']);
+        $data = $this->all();
+        unset($data['equipment'], $data['translations'], $data['locationChangeNote']);
 
         if ($this->equipment) {
             $this->equipment->update($data);

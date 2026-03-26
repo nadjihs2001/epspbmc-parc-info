@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             Core\StructuresSeeder::class,
             Core\LocationsSeeder::class,
-            Permissions\ModulePermissionsSeeder::class,
+            Permissions\RolesAndPermissionsSeeder::class,
         ]);
 
         $adminEmail = 'admin@example.com';
