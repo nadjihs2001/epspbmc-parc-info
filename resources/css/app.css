@@ -1,0 +1,235 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --valex-bg: #f5f7fb;
+        --valex-card: #ffffff;
+        --valex-border: #e5eaf2;
+        --valex-text: #1f2937;
+        --valex-muted: #6b7280;
+        --valex-primary: #6259ca;
+        --valex-primary-soft: #ecebff;
+        --valex-sidebar-from: #2f1f6b;
+        --valex-sidebar-to: #3f2f86;
+    }
+
+    body {
+        color: var(--valex-text);
+        background: radial-gradient(circle at 90% -30%, #e7e7ff 0%, #f5f7fb 45%, #f5f7fb 100%);
+    }
+}
+
+@layer components {
+    .valex-body {
+        @apply min-h-screen;
+    }
+
+    .valex-shell {
+        @apply min-h-screen flex;
+    }
+
+    .valex-sidebar {
+        @apply fixed inset-y-0 left-0 z-40 w-72 p-5;
+        background: linear-gradient(180deg, var(--valex-sidebar-from), var(--valex-sidebar-to));
+        box-shadow: 8px 0 24px rgba(39, 24, 88, 0.18);
+        transform: translateX(-110%);
+        transition: transform 180ms ease;
+    }
+
+    .valex-sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    .valex-brand {
+        @apply flex items-center gap-3 pb-6 mb-4 border-b border-white/20;
+    }
+
+    .valex-brand-logo {
+        @apply h-10 w-10 rounded-xl bg-white/15 grid place-items-center;
+    }
+
+    .valex-brand-title {
+        @apply text-white font-semibold tracking-wide;
+    }
+
+    .valex-brand-subtitle {
+        @apply text-xs text-white/70;
+    }
+
+    .valex-nav {
+        @apply flex flex-col gap-1;
+    }
+
+    .valex-nav-link {
+        @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/80 transition;
+    }
+
+    .valex-nav-link:hover {
+        @apply bg-white/10 text-white;
+    }
+
+    .valex-nav-link.is-active {
+        @apply bg-white text-indigo-700 font-semibold;
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+    }
+
+    .valex-nav-dot {
+        @apply w-2 h-2 rounded-full bg-current opacity-60;
+    }
+
+    .valex-main {
+        @apply flex-1 min-w-0 lg:pl-72;
+    }
+
+    .valex-topbar {
+        @apply h-16 px-4 sm:px-6 lg:px-8 bg-white/90 backdrop-blur border-b border-slate-200 flex items-center justify-between sticky top-0 z-30;
+    }
+
+    .valex-menu-btn {
+        @apply inline-flex lg:hidden items-center justify-center w-10 h-10 rounded-xl border border-slate-300 text-slate-600 bg-white;
+    }
+
+    .valex-topbar-right {
+        @apply flex items-center gap-2 sm:gap-3;
+    }
+
+    .valex-top-link {
+        @apply hidden sm:inline-block px-3 py-2 text-sm rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50;
+    }
+
+    .valex-user-chip {
+        @apply hidden sm:flex items-center gap-2 px-2 py-1.5 rounded-xl bg-slate-100 text-sm;
+    }
+
+    .valex-user-avatar {
+        @apply h-7 w-7 rounded-lg bg-indigo-600 text-white text-xs font-semibold grid place-items-center;
+    }
+
+    .valex-logout-btn {
+        @apply px-3 py-2 text-sm rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100;
+    }
+
+    .valex-page-head {
+        @apply px-4 sm:px-6 lg:px-8 pt-6 pb-2;
+    }
+
+    .valex-content {
+        @apply px-4 sm:px-6 lg:px-8 pb-8;
+    }
+
+    .valex-overlay {
+        @apply fixed inset-0 bg-slate-900/40 z-30 opacity-0 pointer-events-none lg:hidden;
+        transition: opacity 180ms ease;
+    }
+
+    .valex-overlay.is-open {
+        @apply opacity-100 pointer-events-auto;
+    }
+
+    .valex-content .bg-white.rounded.shadow,
+    .valex-content .bg-white.shadow,
+    .valex-content .bg-white.rounded-lg,
+    .valex-content .bg-white {
+        @apply border border-slate-200 rounded-2xl shadow-sm;
+    }
+
+    .valex-content table {
+        @apply w-full;
+    }
+
+    .valex-content thead {
+        @apply bg-slate-100;
+    }
+
+    .valex-content th {
+        @apply text-xs font-semibold uppercase tracking-wide text-slate-600;
+    }
+
+    .valex-content tbody tr:hover {
+        @apply bg-slate-50/80;
+    }
+
+    .valex-content input[type='text'],
+    .valex-content input[type='email'],
+    .valex-content input[type='number'],
+    .valex-content input[type='date'],
+    .valex-content input[type='password'],
+    .valex-content select,
+    .valex-content textarea {
+        @apply border-slate-300 rounded-xl shadow-sm;
+    }
+
+    .valex-content input:focus,
+    .valex-content select:focus,
+    .valex-content textarea:focus {
+        --tw-ring-color: rgba(98, 89, 202, 0.25);
+        border-color: #6259ca;
+    }
+
+    .valex-content .text-white.bg-slate-900,
+    .valex-content button.bg-slate-900 {
+        background: linear-gradient(180deg, #6d65d8 0%, #5851be 100%);
+        @apply border-0 shadow-md;
+    }
+
+    .valex-content .text-white.bg-slate-900:hover,
+    .valex-content button.bg-slate-900:hover {
+        filter: brightness(1.05);
+    }
+
+    .valex-auth-title {
+        @apply text-2xl font-semibold text-slate-800;
+    }
+
+    .valex-auth-subtitle {
+        @apply mt-1 text-sm text-slate-500;
+    }
+
+    .valex-auth-form {
+        @apply mt-6 space-y-4;
+    }
+
+    .valex-auth-group {
+        @apply space-y-1.5;
+    }
+
+    .valex-auth-label {
+        @apply text-sm font-medium text-slate-700;
+    }
+
+    .valex-auth-input {
+        @apply w-full rounded-xl border-slate-300 px-3 py-2.5 shadow-sm focus:border-indigo-500 focus:ring-indigo-500;
+    }
+
+    .valex-auth-check {
+        @apply rounded border-slate-300 text-indigo-600 focus:ring-indigo-500;
+    }
+
+    .valex-auth-error {
+        @apply text-xs text-rose-600;
+    }
+
+    .valex-auth-status {
+        @apply rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700;
+    }
+
+    .valex-auth-actions {
+        @apply flex items-center justify-between gap-3 pt-2;
+    }
+
+    .valex-auth-link {
+        @apply text-sm text-indigo-600 hover:text-indigo-800 hover:underline;
+    }
+
+    .valex-auth-btn {
+        @apply inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-indigo-700;
+    }
+}
+
+@media (min-width: 1024px) {
+    .valex-sidebar {
+        transform: translateX(0);
+    }
+}
